@@ -26,6 +26,8 @@ RUN  curl -fSL -o /tmp/plugin.tar.gz \
     rm -f /tmp/plugin.tar.gz;
 
 
+COPY kafka/connect-distributed.properties $KAFKA_HOME/config/connect-distributed.properties
+
 EXPOSE 8083
 CMD $KAFKA_HOME/bin/connect-distributed.sh $KAFKA_HOME/config/connect-distributed.properties
 
