@@ -5,7 +5,7 @@ WORKDIR /opt
 ENV KAFKA_HOME /opt/kafka
 
 RUN cd /tmp &&\
-	wget -L http://mirror.klaus-uwe.me/apache/kafka/1.0.0/kafka_2.11-1.0.0.tgz &&\
+	curl -L http://mirror.klaus-uwe.me/apache/kafka/1.0.0/kafka_2.11-1.0.0.tgz -o kafka_2.11-1.0.0.tgz &&\
 	tar -xvf kafka_2.11-1.0.0.tgz &&\
 	mv kafka_2.11-1.0.0 /opt && \
 	ln -s /opt/kafka_2.11-1.0.0 $KAFKA_HOME
@@ -21,7 +21,8 @@ ENV DEBEZIUM_VERSION=0.7.5 \
 RUN mkdir -p $KAFKA_CONNECT_PLUGINS_DIR
 
 RUN set -e &&\
-    wget -L $MAVEN_CENTRAL/io/debezium/debezium-connector-$CONNECTOR/$DEBEZIUM_VERSION/debezium-connector-$CONNECTOR-$DEBEZIUM_VERSION-plugin.tar.gz &&\
+    curl -L -odebezium-connector-$CONNECTOR-$DEBEZIUM_VERSION-plugin.tar.gz \
+          $MAVEN_CENTRAL/io/debezium/debezium-connector-$CONNECTOR/$DEBEZIUM_VERSION/debezium-connector-$CONNECTOR-$DEBEZIUM_VERSION-plugin.tar.gz &&\
     tar -xzf /tmp/debezium-connector-$CONNECTOR-$DEBEZIUM_VERSION-plugin.tar.gz -C $KAFKA_CONNECT_PLUGINS_DIR &&\
     rm -f /tmp/debezium-connector-$CONNECTOR-$DEBEZIUM_VERSION-plugin.tar.gz;
 
