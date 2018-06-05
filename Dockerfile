@@ -21,10 +21,10 @@ ENV DEBEZIUM_VERSION=0.7.5 \
 RUN mkdir -p $KAFKA_CONNECT_PLUGINS_DIR
 
 RUN set -e &&\
-    curl -L -odebezium-connector-$CONNECTOR-$DEBEZIUM_VERSION-plugin.tar.gz \
+    curl -L -/tmp/odebezium-connector-plugin.tar.gz \
           $MAVEN_CENTRAL/io/debezium/debezium-connector-$CONNECTOR/$DEBEZIUM_VERSION/debezium-connector-$CONNECTOR-$DEBEZIUM_VERSION-plugin.tar.gz &&\
-    tar -xzf /tmp/debezium-connector-$CONNECTOR-$DEBEZIUM_VERSION-plugin.tar.gz -C $KAFKA_CONNECT_PLUGINS_DIR &&\
-    rm -f /tmp/debezium-connector-$CONNECTOR-$DEBEZIUM_VERSION-plugin.tar.gz;
+    tar -xzf /tmp/odebezium-connector-plugin.tar.gz -C $KAFKA_CONNECT_PLUGINS_DIR &&\
+    rm -f /tmp/odebezium-connector-plugin.tar.gz;
 
 
 COPY kafka/connect-distributed.properties $KAFKA_HOME/config/connect-distributed.properties
