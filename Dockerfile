@@ -20,13 +20,18 @@ ENV DEBEZIUM_VERSION=0.7.5 \
 
 RUN mkdir -p $KAFKA_CONNECT_PLUGINS_DIR
 
+
 RUN set -e &&\
     curl -L -o /tmp/odebezium-connector-plugin.tar.gz \
           $MAVEN_CENTRAL/io/debezium/debezium-connector-$CONNECTOR/$DEBEZIUM_VERSION/debezium-connector-$CONNECTOR-$DEBEZIUM_VERSION-plugin.tar.gz &&\
     tar -xzf /tmp/odebezium-connector-plugin.tar.gz -C $KAFKA_CONNECT_PLUGINS_DIR &&\
     rm -f /tmp/odebezium-connector-plugin.tar.gz;
 
-
+ENV ELASTIC http://packages.confluent.io/maven/io/confluent/kafka-connect-elasticsearch/5.0.0/kafka-connect-elasticsearch-5.0.0.jar
+RUN set -e &&\
+    curl -L -o $KAFKA_CONNECT_PLUGINS_DIR/kafka-connect-elasticsearch.jar \
+          $ELASTIC
+    
 COPY kafka/connect-distributed.properties $KAFKA_HOME/config/connect-distributed.properties
 
 EXPOSE 8083
