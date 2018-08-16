@@ -6,11 +6,9 @@ FROM loraneo/docker-java:10.0.2a
 ENV KAFKA_HOME /opt/kafka
 
 RUN cd /tmp &&\
-	curl -L http://mirror.klaus-uwe.me/apache/kafka/1.0.0/kafka_2.11-1.0.0.tgz -o kafka_2.11-1.0.0.tgz &&\
-	tar -xvf kafka_2.11-1.0.0.tgz &&\
-	mv kafka_2.11-1.0.0 /opt && \
-	ln -s /opt/kafka_2.11-1.0.0 $KAFKA_HOME
-
+	curl -o kafka.tgz -L http://www-eu.apache.org/dist/kafka/2.0.0/kafka_2.12-2.0.0.tgz &&\
+	tar -xvf kafka.tgz -C /opt &&\
+	ln -s /opt/kafka* $KAFKA_HOME
 
 
 
