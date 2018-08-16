@@ -26,10 +26,11 @@ RUN set -e &&\
     tar -xzf /tmp/odebezium-connector-plugin.tar.gz -C $KAFKA_CONNECT_PLUGINS_DIR &&\
     rm -f /tmp/odebezium-connector-plugin.tar.gz;
 
-ENV ELASTIC http://packages.confluent.io/maven/io/confluent/kafka-connect-elasticsearch/5.0.0/kafka-connect-elasticsearch-5.0.0.jar
+ENV ELASTIC https://api.hub.confluent.io/api/plugins/confluentinc/kafka-connect-elasticsearch/versions/5.0.0/archive
 RUN set -e &&\
-    curl -L -o $KAFKA_CONNECT_PLUGINS_DIR/kafka-connect-elasticsearch.jar \
-          $ELASTIC
+    curl -L -o /tmp/kafka-connect-elasticsearch.zip $ELASTIC && \
+    unzup /tmp/kafka-connect-elasticsearch.zip -d $KAFKA_CONNECT_PLUGINS_DIR  &&\
+    rm -f /tmp/kafka-connect-elasticsearch.zip;
     
 COPY kafka/connect-distributed.properties $KAFKA_HOME/config/connect-distributed.properties
 
