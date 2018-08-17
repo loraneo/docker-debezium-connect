@@ -4,9 +4,9 @@ WORKDIR /opt
 
 ENV KAFKA_HOME /opt/confluent
 
-RUN curl -O http://packages.confluent.io/archive/4.1/confluent-4.1.0-2.11.tar.gz && \
-      tar -xvpf confluent-4.1.0-2.11.tar.gz -C /opt &&\
-      mv confluent-4.1.0 confluent
+RUN curl -O https://packages.confluent.io/archive/5.0/confluent-oss-5.0.0-2.11.tar.gz && \
+      tar -xvpf confluent-oss-5.0.0-2.11.tar.gz -C /opt &&\
+      mv confluent-oss-5.0.0 confluent
       
 COPY kafka/connect-distributed.properties $KAFKA_HOME/config/connect-distributed.properties
 
