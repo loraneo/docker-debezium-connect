@@ -29,7 +29,7 @@ RUN set -e &&\
 ENV ELASTIC https://api.hub.confluent.io/api/plugins/confluentinc/kafka-connect-elasticsearch/versions/5.0.0/archive
 RUN set -e &&\
     curl -L -o /tmp/kafka-connect-elasticsearch.zip $ELASTIC && \
-    unzup /tmp/kafka-connect-elasticsearch.zip -d $KAFKA_CONNECT_PLUGINS_DIR  &&\
+    unzip /tmp/kafka-connect-elasticsearch.zip -d $KAFKA_CONNECT_PLUGINS_DIR  &&\
     rm -f /tmp/kafka-connect-elasticsearch.zip;
     
 COPY kafka/connect-distributed.properties $KAFKA_HOME/config/connect-distributed.properties
